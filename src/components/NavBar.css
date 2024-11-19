@@ -1,0 +1,18 @@
+.Navbar {
+  position: fixed; /* Fija la barra de navegación */
+  top: 0; /* Ubicación en la parte superior */
+  left: 0; /* Alineado al lado izquierdo */
+  width: 100%; /* Ocupa todo el ancho de la ventana */
+  z-index: 1000; /* Asegura que esté sobre otros elementos */
+  background-color: white; /* Asegura que tenga un fondo visible */
+  box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1); /* Opcional: sombra para destacar */
+  padding: 5px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.p-tabmenu .p-tabmenu-nav .p-tabmenuitem.p-highlight .p-menuitem-link {
+  background: #ffffff;
+  border-color: #ee3e43;
+  color: #ee3e43;
+}

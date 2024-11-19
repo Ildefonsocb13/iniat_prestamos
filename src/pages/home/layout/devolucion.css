@@ -1,0 +1,105 @@
+/* devolucion.css */
+
+/* Contenedor principal */
+.devoluciones-container {
+  padding: 2rem;
+  background-color: #f4f7f9;
+}
+
+/* Card de la búsqueda */
+.devoluciones-container .p-card {
+  background-color: #fff;
+  border-radius: 8px;
+  padding: 2rem;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+/* Espaciado entre los elementos de la búsqueda */
+.devoluciones-container .p-fluid {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+/* Estilo para el campo de matrícula */
+.devoluciones-container .p-inputtext {
+  font-size: 1rem;
+  padding: 0.8rem;
+  border-radius: 4px;
+  border: 1px solid #d1d5db;
+}
+
+/* Estilo para el botón de búsqueda */
+.devoluciones-container .p-button {
+  background-color: #ee3e43; /* Color de la empresa */
+  color: white;
+  font-weight: bold;
+  border-radius: 4px;
+  padding: 0.75rem;
+  border: none; /* Eliminar borde */
+  transition: background-color 0.3s ease;
+}
+
+.devoluciones-container .p-button:hover {
+  background-color: #d02b2f; /* Color más oscuro para hover */
+}
+
+/* DataTable */
+.devoluciones-container .p-datatable {
+  margin-top: 2rem;
+}
+
+.devoluciones-container .p-datatable .p-column {
+  font-weight: bold;
+}
+
+.devoluciones-container .p-datatable .p-button {
+  padding: 0.5rem;
+  background-color: #ff5c5c;
+  border-radius: 4px;
+  color: white;
+  font-weight: bold;
+  border: none; /* Eliminar borde */
+}
+
+.devoluciones-container .p-datatable .p-button:hover {
+  background-color: #d9534f;
+}
+
+/* Estilo para el Dialog (Formulario de devolución) */
+.devoluciones-container .p-dialog {
+  padding: 2rem;
+  border-radius: 8px;
+  background-color: #fff;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.devoluciones-container .p-dialog .p-button {
+  margin-top: 1rem;
+  width: 100%;
+  background-color: #28a745;
+  color: white;
+  font-weight: bold;
+  border: none; /* Eliminar borde */
+}
+
+.devoluciones-container .p-dialog .p-button:hover {
+  background-color: #218838;
+}
+
+/* Estilo para los elementos del formulario dentro del Dialog */
+.devoluciones-container .p-calendar {
+  width: 100%;
+  border-radius: 4px;
+  font-size: 1rem;
+}
+
+.devoluciones-container .p-toast {
+  z-index: 10000;
+}
+
+/* Contenido adicional dentro del Dialog */
+.devoluciones-container .dialog-content {
+  font-size: 1rem;
+  margin-bottom: 1rem;
+}
