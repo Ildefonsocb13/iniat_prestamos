@@ -1,0 +1,35 @@
+Button {
+  display: inline-block;
+  padding: 10px 20px;
+  font-size: 16px;
+  font-weight: 600;
+  text-align: center;
+  text-decoration: none;
+  color: #ffffff;
+  background-color: #ee3e43; /* Color principal */
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease; /* Suaviza las transiciones */
+}
+
+Button:hover {
+  background-color: #ee3e43; /* Color en hover */
+  box-shadow: 0 6px 10px rgba(0, 0, 0, 0.15);
+  transform: translateY(-2px); /* Efecto flotante */
+}
+
+Button:active {
+  background-color: #ee3e43; /* Color en estado activo */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  transform: translateY(1px); /* Botón presionado */
+}
+
+.admin-container {
+  display: flex;
+  flex-direction: column;
+  padding: 2rem;
+  background-color: #f4f7f9;
+  gap: 2rem;
+}

@@ -125,7 +125,6 @@ const Devolucion = () => {
       style={{
         display: "flex",
         flexDirection: "column",
-        padding: "2rem",
         gap: "2rem",
       }}
     >
