@@ -58,7 +58,7 @@ const Admin = () => {
                 width: "100%",
               }}
             >
-              <h1>Bienvendio al Dashboard</h1>
+              <h1>Bienvenido {userEmail}</h1>
               <UserButton
                 appearance={{
                   elements: {
