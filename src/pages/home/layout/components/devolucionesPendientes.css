@@ -1,0 +1,13 @@
+.devoluciones-pendientes-container .p-card-content {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.p-confirm-dialog-accept {
+  background-color: #ee3e43;
+}
+
+.p-confirm-dialog-reject {
+  color: #ee3e43;
+}

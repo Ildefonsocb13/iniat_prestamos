@@ -64,7 +64,7 @@ const HistorialPrestamos = () => {
           value={prestamos}
           loading={loading}
           paginator
-          rows={5}
+          rows={10}
           removableSort
           emptyMessage="No hay préstamos registrados."
           globalFilter={globalFilter}

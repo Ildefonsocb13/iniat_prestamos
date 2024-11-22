@@ -1,4 +1,28 @@
-.admin-container .signin-button Button {
+.admin-container {
+  display: flex;
+  flex-direction: column;
+  padding: 2rem;
+  background-color: #f4f7f9;
+  gap: 2rem;
+}
+
+.admin-container .signin {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.admin-container .signin .p-card-content {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.admin-container .signin button {
+  min-width: 200px;
+  max-width: 300px;
   display: inline-block;
   padding: 10px 20px;
   font-size: 16px;
@@ -14,22 +38,14 @@
   transition: all 0.3s ease; /* Suaviza las transiciones */
 }
 
-.admin-container .signin-button Button:hover {
+.admin-container .signin button:hover {
   background-color: #ee3e43; /* Color en hover */
   box-shadow: 0 6px 10px rgba(0, 0, 0, 0.15);
   transform: translateY(-2px); /* Efecto flotante */
 }
 
-.admin-container .signin-button Button:active {
+.admin-container .signin button:active {
   background-color: #ee3e43; /* Color en estado activo */
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   transform: translateY(1px); /* Botón presionado */
-}
-
-.admin-container {
-  display: flex;
-  flex-direction: column;
-  padding: 2rem;
-  background-color: #f4f7f9;
-  gap: 2rem;
 }

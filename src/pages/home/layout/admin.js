@@ -45,7 +45,11 @@ const Admin = () => {
   return (
     <div className="admin-container">
       <SignedOut>
-        <SignInButton className="signin-button" />
+        <div className="signin">
+          <Card title="Porfavor iniciar Sesion para acceder">
+            <SignInButton />
+          </Card>
+        </div>
       </SignedOut>
       <SignedIn>
         <div style={{ display: "flex", flexDirection: "column", gap: "2rem" }}>

@@ -38,24 +38,37 @@ const Devolucion = () => {
       const API_RESPONSE = await getPrestamosPorMatricula(matricula);
 
       if (API_RESPONSE.success === true) {
-        // Aquí procesamos las fechas para convertirlas a un formato legible
-        const prestamosConFechas = API_RESPONSE.data.map((prestamo) => ({
-          ...prestamo,
-          fecha_prestamo: new Date(
-            prestamo.fecha_prestamo
-          ).toLocaleDateString(), // Convertir a string con formato MM/DD/YYYY
-          fecha_max_devolucion: new Date(
-            prestamo.fecha_max_devolucion
-          ).toLocaleDateString(), // Convertir a string con formato MM/DD/YYYY
-        }));
+        if (API_RESPONSE.data && API_RESPONSE.data.length > 0) {
+          // Procesar los datos si existen
+          const prestamosConFechas = API_RESPONSE.data.map((prestamo) => ({
+            ...prestamo,
+            fecha_prestamo: new Date(
+              prestamo.fecha_prestamo
+            ).toLocaleDateString(), // Convertir a string con formato MM/DD/YYYY
+            fecha_max_devolucion: new Date(
+              prestamo.fecha_max_devolucion
+            ).toLocaleDateString(), // Convertir a string con formato MM/DD/YYYY
+          }));
 
-        setPrestamos(prestamosConFechas);
+          setPrestamos(prestamosConFechas);
+        } else {
+          // Manejar el caso donde no hay datos
+          setPrestamos([]);
+          toast.current.show({
+            severity: "info",
+            summary: "Sin resultados",
+            detail: "No se encontraron préstamos para esta matrícula.",
+            life: 3000,
+          });
+        }
       } else {
+        // Manejar errores en la solicitud
+        console.log("API_RESPONSE", API_RESPONSE);
         setPrestamos([]);
         toast.current.show({
-          severity: "info",
-          summary: "No hay préstamos",
-          detail: "Esa matrícula no tiene préstamos.",
+          severity: "error",
+          summary: "Error al obtener datos",
+          detail: "Hubo un problema al realizar la solicitud.",
           life: 3000,
         });
       }
@@ -210,7 +223,7 @@ const Devolucion = () => {
               value={prestamos}
               globalFilter={globalFilter}
               paginator
-              rows={5}
+              rows={10}
               removableSort
             >
               <Column body={statusBodyTemplate} header="Acción" />

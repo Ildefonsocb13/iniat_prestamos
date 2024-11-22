@@ -17,6 +17,21 @@ export const getPrestamos = async () => {
 };
 
 /**
+ * Realiza una solicitud para obtener las peticiones de devolucion.
+ * @returns {Promise} Respuesta de la API.
+ */
+export const getDevolucionesPorAprobar = async () => {
+  try {
+    const response = await axios.post(
+      `${API_URL}/getDevolucionesPorAprobar.php`
+    );
+    return response.data;
+  } catch (error) {
+    handleError(error);
+  }
+};
+
+/**
  * Realiza una solicitud para obtener préstamos por matrícula.
  * @param {string} matricula - La matrícula a buscar.
  * @returns {Promise} Respuesta de la API.
@@ -106,6 +121,23 @@ export const updatePrestamo = async (
         status,
         aprobado,
       },
+    });
+    return response.data;
+  } catch (error) {
+    handleError(error);
+  }
+};
+
+/**
+ * Realiza la confirmacion de la devolucion de un prestamo.
+ * @param {number} id - ID del prestamo.
+ * @param {string} aprobado - Dato del usuario que aprobo la devolucion.
+ * @returns {Promise} Respuesta de la API.
+ */
+export const aprobarDevolucion = async (id, aprobado) => {
+  try {
+    const response = await axios.post(`${API_URL}/aprobarDevolucion.php`, {
+      data: { id, aprobado },
     });
     return response.data;
   } catch (error) {
