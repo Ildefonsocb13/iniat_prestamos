@@ -43,12 +43,12 @@ const Admin = () => {
   };
 
   return (
-    <div>
+    <div className="admin-container">
       <SignedOut>
-        <SignInButton />
+        <SignInButton className="signin-button" />
       </SignedOut>
       <SignedIn>
-        <div className="admin-container">
+        <div style={{ display: "flex", flexDirection: "column", gap: "2rem" }}>
           <Card>
             <div
               style={{

@@ -1,0 +1,15 @@
+.historial-prestamos-container .p-card-content {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.historial-prestamos-container .row-sin-solicitar {
+  background-color: rgba(256, 0, 0, 0.1);
+}
+.historial-prestamos-container .row-pendiente {
+  background-color: rgba(251, 192, 147, 0.2);
+}
+.historial-prestamos-container .row-aprobada {
+  background-color: rgba(147, 250, 165, 0.2);
+}

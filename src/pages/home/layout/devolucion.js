@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import axios from "axios"; // Importar axios
 import { Card } from "primereact/card";
 import { InputText } from "primereact/inputtext";
 import { Button } from "primereact/button";
@@ -9,6 +8,11 @@ import { Column } from "primereact/column";
 import { FloatLabel } from "primereact/floatlabel";
 import { Dialog } from "primereact/dialog"; // Para el formulario de devolución
 import "./devolucion.css"; // Puedes agregar estilos si es necesario
+
+import {
+  getPrestamosPorMatricula,
+  crearDevolucion,
+} from "../../../services/api";
 
 const Devolucion = () => {
   const [matricula, setMatricula] = useState(""); // Estado de la matrícula
@@ -31,40 +35,17 @@ const Devolucion = () => {
     }
 
     try {
-      // Simulación de solicitud con Axios (reemplazar la URL con la real)
-      /*const response = await axios.post(
-        "https://api.example.com/devoluciones",
-        { matricula }
-      );*/
+      const API_RESPONSE = await getPrestamosPorMatricula(matricula);
 
-      // Simulando una respuesta de la API
-      const API_RESPONSE = {
-        status: "success", // O puede ser "error" si no tiene préstamos
-        prestamos: [
-          {
-            ID: 1,
-            objeto: "Computadora",
-            fechaSolicitud: "11/12/2013",
-            fechaMaxDevolucion: "11/12/2013",
-          },
-          {
-            ID: 2,
-            objeto: "Proyector",
-            fechaSolicitud: "10/05/2013",
-            fechaMaxDevolucion: "10/05/2013",
-          },
-        ],
-      };
-
-      if (API_RESPONSE.status === "success") {
+      if (API_RESPONSE.success === true) {
         // Aquí procesamos las fechas para convertirlas a un formato legible
-        const prestamosConFechas = API_RESPONSE.prestamos.map((prestamo) => ({
+        const prestamosConFechas = API_RESPONSE.data.map((prestamo) => ({
           ...prestamo,
-          fechaSolicitud: new Date(
-            prestamo.fechaSolicitud
+          fecha_prestamo: new Date(
+            prestamo.fecha_prestamo
           ).toLocaleDateString(), // Convertir a string con formato MM/DD/YYYY
-          fechaMaxDevolucion: new Date(
-            prestamo.fechaMaxDevolucion
+          fecha_max_devolucion: new Date(
+            prestamo.fecha_max_devolucion
           ).toLocaleDateString(), // Convertir a string con formato MM/DD/YYYY
         }));
 
@@ -89,18 +70,29 @@ const Devolucion = () => {
   };
 
   // Función para manejar la devolución del préstamo
-  const handleDevolver = () => {
+  const handleDevolver = async () => {
     // Realizar la solicitud de devolución aquí
     try {
-      // Aquí harías la llamada real para devolver el préstamo
-      // const response = await axios.post("https://api.example.com/devolver", { ID: selectedPrestamo.ID, fechaDevolucion });
+      const API_RESPONSE = await crearDevolucion(
+        selectedPrestamo.id,
+        selectedPrestamo.descripcion_entrega
+      );
 
-      toast.current.show({
-        severity: "success",
-        summary: "Devolución exitosa",
-        detail: `El préstamo de ${selectedPrestamo.objeto} ha sido devuelto.`,
-        life: 3000,
-      });
+      if (API_RESPONSE.success === true) {
+        toast.current.show({
+          severity: "success",
+          summary: "Solicitud exitosa",
+          detail: API_RESPONSE.message,
+          life: 3000,
+        });
+      } else {
+        toast.current.show({
+          severity: "error",
+          summary: "Error en la solicitud",
+          detail: API_RESPONSE.message,
+          life: 3000,
+        });
+      }
 
       // Cerrar el formulario de devolución
       setShowForm(false);
@@ -117,6 +109,53 @@ const Devolucion = () => {
 
   const onGlobalFilterChange = (e) => {
     setGlobalFilter(e.target.value);
+  };
+
+  // Función para mostrar el botón adecuado según el estado
+  const statusBodyTemplate = (rowData) => {
+    const { status } = rowData;
+
+    if (status === "sin solicitar") {
+      return (
+        <Button
+          label="Devolver"
+          icon="pi pi-refresh"
+          onClick={() => {
+            setSelectedPrestamo(rowData);
+            setShowForm(true);
+          }}
+        />
+      );
+    } else if (status === "pendiente") {
+      return (
+        <Button
+          label="Pendiente"
+          icon="pi pi-clock"
+          disabled
+          style={{ backgroundColor: "orange" }}
+        />
+      );
+    } else if (status === "aprobada") {
+      return (
+        <Button
+          label="Aprobada"
+          icon="pi pi-check"
+          disabled
+          style={{ backgroundColor: "green" }}
+        />
+      );
+    }
+
+    return null; // Para manejar cualquier otro caso, si es necesario
+  };
+
+  // Función para manejar el cambio en el campo de la descripción
+  const handleDescripcionEntregaChange = (e) => {
+    const value = e.target.value;
+    setSelectedPrestamo((prevState) => ({
+      ...prevState,
+      descripcion_entrega: value,
+    }));
   };
 
   return (
@@ -174,31 +213,25 @@ const Devolucion = () => {
               rows={5}
               removableSort
             >
+              <Column body={statusBodyTemplate} header="Acción" />
               <Column field="objeto" sortable header="Objeto" />
               <Column
-                field="fechaSolicitud"
+                field="fecha_prestamo"
                 sortable
                 header="Fecha de Solicitud"
               />
               <Column
-                field="fechaMaxDevolucion"
+                field="fecha_devolucion"
+                sortable
+                header="Fecha de Devolucion"
+              />
+              <Column
+                field="fecha_max_devolucion"
                 sortable
                 header="Devolución antes del:"
               />
-              <Column
-                body={(rowData) => (
-                  <Button
-                    label="Devolver"
-                    icon="pi pi-refresh"
-                    className="p-button-danger"
-                    onClick={() => {
-                      setSelectedPrestamo(rowData);
-                      setShowForm(true);
-                    }}
-                  />
-                )}
-                header="Acciones"
-              />
+              <Column field="descripcion_entrega" sortable header="Ubicacion" />
+              <Column field="aprobado" sortable header="Aprobado por" />
             </DataTable>
           </div>
         </Card>
@@ -207,19 +240,32 @@ const Devolucion = () => {
       {/* Formulario de devolución en un Dialog */}
       <Dialog
         visible={showForm}
-        style={{ width: "400px" }}
+        style={{
+          width: "400px",
+        }}
         header="Devolver Préstamo"
         onHide={() => setShowForm(false)}
       >
-        <div>
+        <div style={{ display: "flex", flexDirection: "column", gap: "1rem" }}>
           <p>
             <strong>Objeto:</strong> {selectedPrestamo?.objeto}
           </p>
+          <FloatLabel>
+            <InputText
+              value={selectedPrestamo?.descripcion_entrega}
+              onChange={handleDescripcionEntregaChange}
+              placeholder="eg. Se guardo en...Entrego a..."
+              autoFocus
+            />
+            <label>Donde lo dejas</label>
+          </FloatLabel>
+          <p>Si no devuelves la cosa prestada, puede haber consecuencias</p>
           <Button
             label="Devolver"
             icon="pi pi-check"
             onClick={handleDevolver}
-            style={{ marginTop: "1rem" }}
+            className="dialog-devolver"
+            style={{ backgroundColor: "#ee3e43" }}
           />
         </div>
       </Dialog>

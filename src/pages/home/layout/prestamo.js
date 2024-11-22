@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import axios from "axios"; // Importar axios
 import { Card } from "primereact/card";
 import { InputText } from "primereact/inputtext";
 import { Calendar } from "primereact/calendar";
@@ -8,11 +7,24 @@ import { FloatLabel } from "primereact/floatlabel"; // Asegúrate de que el esti
 import { Toast } from "primereact/toast"; // Importar Toast
 import "./prestamo.css";
 
+import { crearPrestamo } from "../../../services/api";
+
 const Prestamo = () => {
   const [matricula, setMatricula] = useState("");
   const [objeto, setObjeto] = useState("");
   const [fechaDevolucion, setFechaDevolucion] = useState(null);
   const toast = React.useRef(null); // Referencia para mostrar el Toast
+
+  const formatDate = (date) => {
+    const d = new Date(date);
+    const year = d.getFullYear();
+    const month = ("0" + (d.getMonth() + 1)).slice(-2); // Mes de dos dígitos
+    const day = ("0" + d.getDate()).slice(-2); // Día de dos dígitos
+    const hours = ("0" + d.getHours()).slice(-2); // Hora de dos dígitos
+    const minutes = ("0" + d.getMinutes()).slice(-2); // Minutos de dos dígitos
+    const seconds = ("0" + d.getSeconds()).slice(-2); // Segundos de dos dígitos
+    return `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`;
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -27,23 +39,19 @@ const Prestamo = () => {
       });
       return;
     }
+    const fecha_max_devolucion = formatDate(fechaDevolucion);
 
     // Simulación de la llamada a la API con axios
     try {
-      // Aquí harías la llamada real a tu API
-      const response = await axios.post("https://api.example.com/solicitar", {
+      // Convierte la fecha antes de enviarla
+
+      const API_RESPONSE = await crearPrestamo(
         matricula,
         objeto,
-        fechaDevolucion,
-      });
+        fecha_max_devolucion
+      );
 
-      // Suponiendo que la respuesta tiene una propiedad `status` que indica éxito
-      const API_RESPONSE = {
-        status: "success", // Puedes probar con "error" también
-        message: "Solicitud realizada con éxito",
-      };
-
-      if (API_RESPONSE.status === "success") {
+      if (API_RESPONSE.success === true) {
         toast.current.show({
           severity: "success",
           summary: "Solicitud exitosa",
@@ -54,8 +62,7 @@ const Prestamo = () => {
         toast.current.show({
           severity: "error",
           summary: "Error en la solicitud",
-          detail:
-            "Hubo un problema al procesar la solicitud. Intente nuevamente.",
+          detail: API_RESPONSE.message,
           life: 3000,
         });
       }

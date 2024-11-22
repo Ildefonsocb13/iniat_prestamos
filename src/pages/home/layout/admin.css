@@ -1,4 +1,4 @@
-Button {
+.admin-container .signin-button Button {
   display: inline-block;
   padding: 10px 20px;
   font-size: 16px;
@@ -14,13 +14,13 @@ Button {
   transition: all 0.3s ease; /* Suaviza las transiciones */
 }
 
-Button:hover {
+.admin-container .signin-button Button:hover {
   background-color: #ee3e43; /* Color en hover */
   box-shadow: 0 6px 10px rgba(0, 0, 0, 0.15);
   transform: translateY(-2px); /* Efecto flotante */
 }
 
-Button:active {
+.admin-container .signin-button Button:active {
   background-color: #ee3e43; /* Color en estado activo */
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   transform: translateY(1px); /* Botón presionado */
