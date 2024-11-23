@@ -189,7 +189,12 @@ const Devolucion = () => {
           <FloatLabel>
             <InputText
               value={matricula}
-              onChange={(e) => setMatricula(e.target.value)}
+              onChange={(e) => {
+                const value = e.target.value;
+                if (/^\d*$/.test(value)) {
+                  setMatricula(value);
+                }
+              }}
               placeholder="eg. 215951"
               autoFocus
             />
