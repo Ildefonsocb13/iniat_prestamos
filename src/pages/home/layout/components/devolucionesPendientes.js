@@ -20,7 +20,6 @@ import "./devolucionesPendientes.css";
 const DevolucionesPendientes = () => {
   const [prestamos, setPrestamos] = useState([]); // Estado para almacenar los préstamos
   const [loading, setLoading] = useState(true); // Estado de carga
-  const [selectedPrestamo, setSelectedPrestamo] = useState(null); // Prestamo seleccionado para devolver
   const [globalFilter, setGlobalFilter] = useState(""); // Filtro global para la búsqueda
   const toast = useRef(null); // Referencia para el Toast
   const { user } = useUser(); // Correo del usuario
@@ -65,7 +64,6 @@ const DevolucionesPendientes = () => {
 
   // Función para mostrar el diálogo de confirmación
   const showConfirmDialog = (prestamo) => {
-    setSelectedPrestamo(prestamo); // Establecer el préstamo seleccionado
     confirmDialog({
       header: "Confirmar Aprobación",
       message: (
@@ -96,6 +94,8 @@ const DevolucionesPendientes = () => {
           detail: API_RESPONSE.message,
           life: 3000,
         });
+        setPrestamos(prestamos.filter((p) => p.ID !== prestamo.ID));
+        console.log("solicitud exitosa");
       } else {
         toast.current.show({
           severity: "error",
@@ -103,9 +103,8 @@ const DevolucionesPendientes = () => {
           detail: API_RESPONSE.message,
           life: 3000,
         });
+        console.log("solicitud Erronea");
       }
-
-      setPrestamos(prestamos.filter((p) => p.ID !== selectedPrestamo.ID));
     } catch (error) {
       toast.current.show({
         severity: "error",
@@ -113,6 +112,7 @@ const DevolucionesPendientes = () => {
         detail: "No se pudo aprobar la devolucion. Intente nuevamente.",
         life: 3000,
       });
+      console.log("Error en la solicitud");
     }
   };
 

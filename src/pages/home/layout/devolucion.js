@@ -84,6 +84,20 @@ const Devolucion = () => {
 
   // Función para manejar la devolución del préstamo
   const handleDevolver = async () => {
+    if (
+      !selectedPrestamo?.descripcion_entrega ||
+      selectedPrestamo.descripcion_entrega.trim() === ""
+    ) {
+      // Mostrar un mensaje de error si el campo está vacío
+      toast.current.show({
+        severity: "error",
+        summary: "Error",
+        detail: "Por favor, proporciona la descripción de entrega.",
+        life: 3000,
+      });
+      return; // No ejecutar el resto de la lógica
+    }
+
     // Realizar la solicitud de devolución aquí
     try {
       const API_RESPONSE = await crearDevolucion(
