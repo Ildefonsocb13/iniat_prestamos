@@ -291,7 +291,10 @@ const Devolucion = () => {
             />
             <label>Donde lo dejas</label>
           </FloatLabel>
-          <p>Si no devuelves la cosa prestada, puede haber consecuencias</p>
+          <p>
+            Recuerda que el material es de todos, cuídalo y regresalo
+            oportunamente
+          </p>
           <Button
             label="Devolver"
             icon="pi pi-check"
