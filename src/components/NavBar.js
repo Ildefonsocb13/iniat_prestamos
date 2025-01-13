@@ -5,12 +5,12 @@ import "./NavBar.css";
 const NavBar = ({ activeIndex, onTabChange }) => {
   const items = [
     {
-      label: "Prestamo",
+      label: "Prestamos",
       icon: "pi pi-box",
     },
     {
-      label: "Devolucion",
-      icon: "pi pi-refresh",
+      label: "Asistencias",
+      icon: "pi pi-check",
     },
     {
       label: "Admin",

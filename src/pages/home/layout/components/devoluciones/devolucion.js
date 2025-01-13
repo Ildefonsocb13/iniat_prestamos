@@ -12,7 +12,7 @@ import "./devolucion.css"; // Puedes agregar estilos si es necesario
 import {
   getPrestamosPorMatricula,
   crearDevolucion,
-} from "../../../services/api";
+} from "../../../../../services/api";
 
 const Devolucion = () => {
   const [matricula, setMatricula] = useState(""); // Estado de la matrícula

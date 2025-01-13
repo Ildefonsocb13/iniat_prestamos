@@ -2,7 +2,7 @@ import { Card } from "primereact/card";
 import { DataTable } from "primereact/datatable";
 import React, { useEffect, useState } from "react";
 
-import { getPrestamos } from "../../../../services/api";
+import { getPrestamos } from "../../../../../services/api";
 import { Column } from "primereact/column";
 import { InputText } from "primereact/inputtext";
 

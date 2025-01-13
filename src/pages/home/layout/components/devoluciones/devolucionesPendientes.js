@@ -5,7 +5,7 @@ import React, { useEffect, useRef, useState } from "react";
 import {
   getDevolucionesPorAprobar,
   aprobarDevolucion,
-} from "../../../../services/api";
+} from "../../../../../services/api";
 
 import { Column } from "primereact/column";
 import { InputText } from "primereact/inputtext";

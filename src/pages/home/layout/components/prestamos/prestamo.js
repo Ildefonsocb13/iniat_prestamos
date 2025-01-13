@@ -7,7 +7,7 @@ import { FloatLabel } from "primereact/floatlabel"; // Asegúrate de que el esti
 import { Toast } from "primereact/toast"; // Importar Toast
 import "./prestamo.css";
 
-import { crearPrestamo } from "../../../services/api";
+import { crearPrestamo } from "../../../../../services/api";
 
 const Prestamo = () => {
   const [matricula, setMatricula] = useState("");
@@ -86,7 +86,7 @@ const Prestamo = () => {
   return (
     <div className="prestamo-container" style={{ padding: "2rem" }}>
       <Toast ref={toast} />
-      <Card title="Formulario de Préstamo">
+      <Card title="Solicitud de préstamo">
         <form onSubmit={handleSubmit}>
           <div className="p-fluid">
             {/* Matricula */}

@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import NavBar from "../../components/NavBar";
-import Prestamo from "./layout/prestamo";
-import Devolucion from "./layout/devolucion";
+import Prestamos from "./layout/prestamos";
 import Admin from "./layout/admin";
+import Asistencia from "./layout/asistencia";
 
 const Home = () => {
   const [activeIndex, setActiveIndex] = useState(0); // Estado para controlar el índice de la pestaña seleccionada
@@ -15,13 +15,13 @@ const Home = () => {
   const renderContent = () => {
     switch (activeIndex) {
       case 0:
-        return <Prestamo />;
+        return <Prestamos />;
       case 1:
-        return <Devolucion />;
+        return <Asistencia />;
       case 2:
         return <Admin />;
       default:
-        return <Prestamo />;
+        return <Prestamos />;
     }
   };
 

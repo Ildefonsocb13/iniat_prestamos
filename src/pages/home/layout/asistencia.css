@@ -1,0 +1,68 @@
+.asistencia-container {
+  padding: 2rem;
+  background-color: #f4f7f9;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.asistencia-card {
+  padding: 2rem;
+  width: 400px;
+  background-color: white;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+}
+
+.asistencia-input-container {
+  margin-bottom: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.asistencia-input-container .p-inputtext {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 16px;
+}
+
+.asistencia-buttons {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.asistencia-buttons .p-button {
+  flex: 1;
+  font-weight: bold;
+  border-radius: 5px;
+  padding: 0.75rem;
+  border: none;
+  transition: background-color 0.3s ease;
+}
+
+.asistencia-buttons .p-button-success {
+  background-color: #28a745; /* Verde */
+  color: white;
+}
+
+.asistencia-buttons .p-button-danger {
+  background-color: #dc3545; /* Rojo */
+  color: white;
+}
+
+.asistencia-buttons .p-button-success:hover {
+  background-color: #218838;
+}
+
+.asistencia-buttons .p-button-danger:hover {
+  background-color: #c82333;
+}
+
+.asistencia-toast {
+  z-index: 9999;
+}

@@ -9,8 +9,10 @@ import {
 import { Card } from "primereact/card";
 import { TabMenu } from "primereact/tabmenu";
 
-import HistorialPrestamos from "./components/historialPrestamos";
-import DevolucionesPendientes from "./components/devolucionesPendientes";
+import HistorialPrestamos from "./components/prestamos/historialPrestamos";
+import DevolucionesPendientes from "./components/devoluciones/devolucionesPendientes";
+import UsuariosCrud from "./components/usuarios/usuariosCrud";
+
 import "./admin.css";
 
 const Admin = () => {
@@ -28,6 +30,10 @@ const Admin = () => {
       label: "Devoluciones Pendientes",
       icon: "pi pi-refresh",
     },
+    {
+      label: "Usuarios",
+      icon: "pi pi-users",
+    },
   ];
 
   // Determinar qué componente mostrar basado en el tab seleccionado
@@ -37,6 +43,8 @@ const Admin = () => {
         return <HistorialPrestamos />;
       case 1:
         return <DevolucionesPendientes />;
+      case 2:
+        return <UsuariosCrud />;
       default:
         return <DevolucionesPendientes />;
     }
