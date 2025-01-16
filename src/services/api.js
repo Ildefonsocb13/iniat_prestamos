@@ -329,6 +329,19 @@ export const getUsuarios = async () => {
 };
 
 /**
+ * Obtiene todos los Profesores.
+ * @returns {Promise} Respuesta de la API con la lista de Profesores.
+ */
+export const getProfesores = async () => {
+  try {
+    const response = await axios.get(`${API_URL}/usuarios/getProfesores.php`);
+    return response.data;
+  } catch (error) {
+    handleError(error);
+  }
+};
+
+/**
  * Elimina un usuario por su ID.
  * @param {number} id - ID del usuario a eliminar.
  * @returns {Promise} Respuesta de la API.
@@ -340,6 +353,67 @@ export const deleteUsuario = async (id) => {
         id,
       },
     });
+    return response.data;
+  } catch (error) {
+    handleError(error);
+  }
+};
+
+//  Modulo de Proyectos ------------------------------------------------------------------------
+
+/**
+ * Agrega o edita un proyecto.
+ * @param {Object} proyecto - Objeto con los datos del proyecto (id, nombre, descripcion, id_profesor).
+ * @returns {Promise} Respuesta de la API.
+ */
+export const saveProyecto = async (proyecto) => {
+  try {
+    console.log("proyecto", proyecto);
+    const response = await axios.post(
+      `${API_URL}/proyectos/addEditProyecto.php`,
+      {
+        data: proyecto,
+      }
+    ); // Asegúrate de que la URL y los datos sean correctos
+    if (response.data.success) {
+      return response.data; // Devuelve la respuesta si fue exitosa
+    } else {
+      throw new Error(response.data.message || "Error desconocido");
+    }
+  } catch (error) {
+    console.error("Error en saveProyecto:", error);
+    throw error; // Propaga el error para que el catch en el frontend lo maneje
+  }
+};
+
+/**
+ * Obtiene todos los proyectos.
+ * @returns {Promise} Respuesta de la API con la lista de proyectos.
+ */
+export const getProyectos = async () => {
+  try {
+    const response = await axios.get(`${API_URL}/proyectos/getProyectos.php`);
+    return response.data;
+  } catch (error) {
+    handleError(error);
+  }
+};
+
+/**
+ * Elimina un proyecto por su ID.
+ * @param {number} id - ID del proyecto a eliminar.
+ * @returns {Promise} Respuesta de la API.
+ */
+export const deleteProyecto = async (id) => {
+  try {
+    const response = await axios.post(
+      `${API_URL}/proyectos/deleteProyecto.php`,
+      {
+        data: {
+          id,
+        },
+      }
+    );
     return response.data;
   } catch (error) {
     handleError(error);

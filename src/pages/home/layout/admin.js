@@ -12,6 +12,7 @@ import { TabMenu } from "primereact/tabmenu";
 import HistorialPrestamos from "./components/prestamos/historialPrestamos";
 import DevolucionesPendientes from "./components/devoluciones/devolucionesPendientes";
 import UsuariosCrud from "./components/usuarios/usuariosCrud";
+import ProyectosCrud from "./components/proyectos/proyectosCrud";
 
 import "./admin.css";
 
@@ -31,6 +32,10 @@ const Admin = () => {
       icon: "pi pi-refresh",
     },
     {
+      label: "Proyectos",
+      icon: "pi pi-briefcase",
+    },
+    {
       label: "Usuarios",
       icon: "pi pi-users",
     },
@@ -44,6 +49,8 @@ const Admin = () => {
       case 1:
         return <DevolucionesPendientes />;
       case 2:
+        return <ProyectosCrud />;
+      case 3:
         return <UsuariosCrud />;
       default:
         return <DevolucionesPendientes />;

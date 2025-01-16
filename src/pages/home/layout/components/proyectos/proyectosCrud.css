@@ -1,0 +1,85 @@
+/* proyectosCrud.css */
+
+/* Encabezado con botón y barra de búsqueda */
+.proyectos-crud-container .header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.5rem;
+}
+
+/* Botón de agregar proyecto */
+.proyectos-crud-container .header .p-button {
+  background-color: #28a745; /* Verde */
+  color: white;
+  font-weight: bold;
+  border-radius: 4px;
+  padding: 0.75rem 1.5rem;
+  border: none; /* Sin borde */
+  transition: background-color 0.3s ease;
+}
+
+.proyectos-crud-container .header .p-button:hover {
+  background-color: #218838; /* Verde más oscuro */
+}
+
+/* Barra de búsqueda */
+.proyectos-crud-container .header .p-inputtext {
+  width: 300px;
+  font-size: 1rem;
+  padding: 0.8rem;
+  border-radius: 4px;
+  border: 1px solid #d1d5db;
+}
+
+/* DataTable */
+.proyectos-crud-container .p-datatable {
+  margin-top: 1rem;
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.proyectos-crud-container .p-datatable .p-column {
+  font-weight: bold;
+}
+
+/* Botones de acciones */
+.proyectos-crud-container .acciones-buttons .p-button {
+  padding: 0.5rem;
+  border-radius: 4px;
+  font-weight: bold;
+  color: white;
+  border: none; /* Sin borde */
+}
+
+.proyectos-crud-container .acciones-buttons .p-button-warning {
+  background-color: #ffc107; /* Amarillo */
+}
+
+.proyectos-crud-container .acciones-buttons .p-button-warning:hover {
+  background-color: #e0a800; /* Amarillo más oscuro */
+}
+
+.proyectos-crud-container .acciones-buttons .p-button-danger {
+  background-color: #dc3545; /* Rojo */
+}
+
+.proyectos-crud-container .acciones-buttons .p-button-danger:hover {
+  background-color: #bd2130; /* Rojo más oscuro */
+}
+
+/* Columna personalizada (Detalles/Dropdown) */
+.proyectos-crud-container .custom-dropdown-column {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  font-size: 0.9rem;
+  color: #6c757d;
+}
+
+/* Toast para notificaciones */
+.proyectos-crud-container .p-toast {
+  z-index: 10000;
+}
