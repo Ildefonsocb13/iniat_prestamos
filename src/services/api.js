@@ -207,6 +207,7 @@ export const registrarAsistencia = async (matricula, tipo) => {
  * @returns {Promise} Respuesta de la API.
  */
 export const getAsistenciasPorMatricula = async (matricula) => {
+  console.log("matricula", matricula);
   try {
     const response = await axios.post(
       `${API_URL}/asistencias/getAsistenciasPorMatricula.php`,

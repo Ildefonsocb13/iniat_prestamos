@@ -9,13 +9,12 @@ import { Toast } from "primereact/toast";
 import { Button } from "primereact/button";
 import { Dialog } from "primereact/dialog";
 import { Dropdown } from "primereact/dropdown";
+import UsuarioDetalle from "./usuarioDetalle";
 
 import {
   getUsuarios,
   saveUsuario,
   deleteUsuario,
-  getAsistenciasPorMatricula,
-  getTiempoAsistido,
 } from "../../../../../services/api"; // Importamos las funciones de la API
 
 import "./usuariosCrud.css";
@@ -24,7 +23,9 @@ const UsuariosCrud = () => {
   const [usuarios, setUsuarios] = useState([]);
   const [loading, setLoading] = useState(true);
   const [globalFilter, setGlobalFilter] = useState("");
-  const [dialogVisible, setDialogVisible] = useState(false); // Controla la visibilidad del diálogo
+  const [dialogVisible, setDialogVisible] = useState(false); // Estado del dialogo de creación y edición
+  const [detalleDialogVisible, setDetalleDialogVisible] = useState(false); // Estado para el diálogo de detalles x Usuario
+  const [usuarioDetalle, setUsuarioDetalle] = useState(null); // Datos del usuario seleccionado
   const [usuario, setUsuario] = useState({
     id: null,
     nombre: "",
@@ -32,11 +33,6 @@ const UsuariosCrud = () => {
     matricula: "",
     tipo: "alumno", // Tipo por defecto
   });
-
-  //Variables para el detallado por usuario
-  const [expandedRows, setExpandedRows] = useState(null);
-  const [asistencias, setAsistencias] = useState([]);
-  const [tiempoAsistido, setTiempoAsistido] = useState({ dias: 0, horas: 0 });
 
   const toast = useRef(null);
 
@@ -171,68 +167,35 @@ const UsuariosCrud = () => {
     }
   };
 
-  // Plantilla para la expansión de filas
-  // Mostrara dias asistidos asi como horas totales
-  // Un DataTable con la lista de asistencias para ese usuario.
-  const rowExpansionTemplate = (data) => {
+  const viewDetail = (rowData) => {
+    setUsuarioDetalle(rowData);
+    setDetalleDialogVisible(true); // Muestra el diálogo de detalles
+  };
+
+  const renderIdBodyTemplate = (rowData) => {
     return (
-      <div className="p-3">
-        <h5>
-          Detalles de {data.nombre} {data.apellido}
-        </h5>
-        <p>
-          <strong>ID:</strong> {data.id}
-        </p>
-        <p>
-          <strong>Matrícula:</strong> {data.matricula}
-        </p>
-        <p>
-          <strong>Tipo:</strong> {data.tipo}
-        </p>
-      </div>
+      <Button
+        label="Ver Detalles"
+        className="p-button-text"
+        style={{ backgroundColor: "#dc3545", color: "white" }}
+        onClick={() => viewDetail(rowData)}
+      />
     );
-  };
-
-  // Funciones para obtener el tiempo asistido y las asistencias de un usuario
-  const fetchTiempoAsistido = async (matricula) => {
-    try {
-      const response = await getTiempoAsistido(matricula);
-      if (response.success && response.data) {
-        setTiempoAsistido({
-          dias: response.data.diasAsistidos || 0,
-          horas: response.data.horasAsistidas || 0,
-        });
-      } else {
-        console.error(
-          "No se recibieron datos válidos de tiempo asistido",
-          response
-        );
-      }
-    } catch (error) {
-      console.error("Error al obtener el tiempo asistido:", error);
-    }
-  };
-
-  // Lista de asistencias por matrícula
-  const fetchAsistencias = async (matricula) => {
-    try {
-      const response = await getAsistenciasPorMatricula(matricula);
-      if (response.success && Array.isArray(response.data)) {
-        setAsistencias(response.data);
-      } else {
-        console.error("No se recibieron asistencias válidas", response);
-        setAsistencias([]);
-      }
-    } catch (error) {
-      console.error("Error al obtener las asistencias:", error);
-      setAsistencias([]);
-    }
   };
 
   return (
     <div className="usuarios-crud-container">
       <Toast ref={toast} />
       <ConfirmDialog />
+      {/* Diálogo de detalles */}
+      <Dialog
+        header="Detalles del Usuario"
+        visible={detalleDialogVisible}
+        onHide={() => setDetalleDialogVisible(false)}
+        style={{ width: "50vw" }}
+      >
+        {usuarioDetalle && <UsuarioDetalle rowData={usuarioDetalle} />}
+      </Dialog>
       <Card>
         <div className="header">
           <Button
@@ -255,13 +218,9 @@ const UsuariosCrud = () => {
           removableSort
           globalFilter={globalFilter}
           emptyMessage="No hay usuarios registrados."
-          expandedRows={expandedRows}
-          onRowToggle={(e) => setExpandedRows(e.data)}
-          rowExpansionTemplate={rowExpansionTemplate}
           dataKey="id"
         >
-          <Column expander style={{ width: "3rem" }} />
-          <Column field="id" header="ID" sortable />
+          <Column header="Detalles" body={renderIdBodyTemplate} />
           <Column field="nombre" header="Nombre" sortable />
           <Column field="apellido" header="Apellido" sortable />
           <Column field="matricula" header="Matrícula" sortable />

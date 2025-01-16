@@ -15,13 +15,15 @@ const Home = () => {
   const renderContent = () => {
     switch (activeIndex) {
       case 0:
-        return <Prestamos />;
-      case 1:
         return <Asistencia />;
+
+      case 1:
+        return <Prestamos />;
+
       case 2:
         return <Admin />;
       default:
-        return <Prestamos />;
+        return <Asistencia />;
     }
   };
 
