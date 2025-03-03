@@ -192,7 +192,7 @@ const UsuariosCrud = () => {
         header="Detalles del Usuario"
         visible={detalleDialogVisible}
         onHide={() => setDetalleDialogVisible(false)}
-        style={{ width: "50vw" }}
+        style={{ width: "60vw" }}
       >
         {usuarioDetalle && <UsuarioDetalle rowData={usuarioDetalle} />}
       </Dialog>

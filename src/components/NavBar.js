@@ -9,6 +9,10 @@ const NavBar = ({ activeIndex, onTabChange }) => {
       icon: "pi pi-check",
     },
     {
+      label: "Bitacora",
+      icon: "pi pi-book",
+    },
+    {
       label: "Prestamos",
       icon: "pi pi-box",
     },

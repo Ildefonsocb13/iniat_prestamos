@@ -419,3 +419,139 @@ export const deleteProyecto = async (id) => {
     handleError(error);
   }
 };
+
+//  Modulo de Bitacora ------------------------------------------------------------------------
+
+/**
+ * Obtiene todas las bitácoras.
+ * @returns {Promise} Respuesta de la API.
+ */
+export const getBitacoras = async () => {
+  try {
+    const response = await axios.post(`${API_URL}/bitacoras/getBitacoras.php`);
+    return response.data;
+  } catch (error) {
+    handleError(error);
+  }
+};
+
+/**
+ * Obtiene las bitácoras por matrícula.
+ * @param {string} matricula - La matrícula a buscar.
+ * @returns {Promise} Respuesta de la API.
+ */
+export const getBitacorasByMatricula = async (matricula) => {
+  try {
+    const response = await axios.post(
+      `${API_URL}/bitacoras/getBitacorasByMatricula.php`,
+      {
+        data: { matricula },
+      }
+    );
+    return response.data;
+  } catch (error) {
+    handleError(error);
+  }
+};
+
+/**
+ * Obtiene las bitácoras por ID de proyecto.
+ * @param {number} id_proyecto - El ID del proyecto a buscar.
+ * @returns {Promise} Respuesta de la API.
+ */
+export const getBitacoraByProyecto = async (id_proyecto) => {
+  try {
+    const response = await axios.post(
+      `${API_URL}/bitacoras/getBitacoraByProyecto.php`,
+      {
+        data: { id_proyecto },
+      }
+    );
+    return response.data;
+  } catch (error) {
+    handleError(error);
+  }
+};
+
+/**
+ * Obtiene las bitácoras por ID de profesor.
+ * @param {number} id_profesor - El ID del profesor a buscar.
+ * @returns {Promise} Respuesta de la API.
+ */
+export const getBitacorasByProfesor = async (id_profesor) => {
+  try {
+    const response = await axios.post(
+      `${API_URL}/bitacoras/getBitacorasByProfesor.php`,
+      {
+        data: { id_profesor },
+      }
+    );
+    return response.data;
+  } catch (error) {
+    handleError(error);
+  }
+};
+
+/**
+ * Agrega una nueva bitácora.
+ * @param {string} matricula - La matrícula del alumno.
+ * @param {number} id_proyecto - El ID del proyecto.
+ * @param {string} actividades - Las actividades realizadas.
+ * @returns {Promise} Respuesta de la API.
+ */
+export const addBitacora = async (matricula, id_proyecto, actividades) => {
+  try {
+    const response = await axios.post(`${API_URL}/bitacoras/addBitacora.php`, {
+      data: { matricula, id_proyecto, actividades },
+    });
+    return response.data;
+  } catch (error) {
+    handleError(error);
+  }
+};
+
+/**
+ * Actualiza una bitácora existente.
+ * @param {number} id - El ID de la bitácora a actualizar.
+ * @param {string} matricula - La matrícula del alumno.
+ * @param {number} id_proyecto - El ID del proyecto.
+ * @param {string} actividades - Las actividades realizadas.
+ * @returns {Promise} Respuesta de la API.
+ */
+export const updateBitacora = async (
+  id,
+  matricula,
+  id_proyecto,
+  actividades
+) => {
+  try {
+    const response = await axios.post(
+      `${API_URL}/bitacoras/updateBitacora.php`,
+      {
+        data: { id, matricula, id_proyecto, actividades },
+      }
+    );
+    return response.data;
+  } catch (error) {
+    handleError(error);
+  }
+};
+
+/**
+ * Elimina una bitácora por su ID.
+ * @param {number} id - El ID de la bitácora a eliminar.
+ * @returns {Promise} Respuesta de la API.
+ */
+export const deleteBitacora = async (id) => {
+  try {
+    const response = await axios.post(
+      `${API_URL}/bitacoras/deleteBitacora.php`,
+      {
+        data: { id },
+      }
+    );
+    return response.data;
+  } catch (error) {
+    handleError(error);
+  }
+};

@@ -3,12 +3,13 @@ import { Card } from "primereact/card";
 import { DataTable } from "primereact/datatable";
 import { Column } from "primereact/column";
 import { Divider } from "primereact/divider";
+import { InputText } from "primereact/inputtext";
 
 import {
   getAsistenciasPorMatricula,
   getTiempoAsistido,
+  getBitacorasByMatricula, // Importar la función para obtener bitácoras
 } from "../../../../../services/api";
-import { InputText } from "primereact/inputtext";
 
 const UsuarioDetalle = ({ rowData }) => {
   const [tiempoAsistido, setTiempoAsistido] = useState({
@@ -16,14 +17,18 @@ const UsuarioDetalle = ({ rowData }) => {
     horas: 0,
   });
   const [asistencias, setAsistencias] = useState([]);
+  const [bitacoras, setBitacoras] = useState([]); // Estado para las bitácoras
   const [loadingAsistencias, setLoadingAsistencias] = useState(true);
-  const [globalFilter, setGlobalFilter] = useState("");
+  const [loadingBitacoras, setLoadingBitacoras] = useState(true); // Estado de carga para bitácoras
+  const [globalFilterAsistencias, setGlobalFilterAsistencias] = useState("");
+  const [globalFilterBitacoras, setGlobalFilterBitacoras] = useState(""); // Filtro global para bitácoras
 
   useEffect(() => {
     console.log("rowData", rowData);
     if (rowData?.matricula) {
       fetchTiempoAsistido(rowData.matricula);
       fetchAsistencias(rowData.matricula);
+      fetchBitacoras(rowData.matricula); // Llamar a la función para obtener bitácoras
     }
   }, [rowData]);
 
@@ -84,6 +89,24 @@ const UsuarioDetalle = ({ rowData }) => {
     }
   };
 
+  const fetchBitacoras = async (matricula) => {
+    setLoadingBitacoras(true);
+    try {
+      const response = await getBitacorasByMatricula(matricula);
+      if (response.success && Array.isArray(response.data)) {
+        setBitacoras(response.data);
+      } else {
+        console.error("No se recibieron bitácoras válidas", response);
+        setBitacoras([]);
+      }
+    } catch (error) {
+      console.error("Error al obtener las bitácoras:", error);
+      setBitacoras([]);
+    } finally {
+      setLoadingBitacoras(false);
+    }
+  };
+
   return (
     <div className="usuario-detalle" style={{ paddingTop: "1rem" }}>
       <div
@@ -111,9 +134,9 @@ const UsuarioDetalle = ({ rowData }) => {
             <strong>Tipo:</strong> {rowData?.tipo}
           </p>
         </Card>
-        {/* Tiempo asistido */}
+        {/* Info Addicional */}
         <Card
-          title="Tiempo Asistido"
+          title="Info Addicional"
           style={{ marginBottom: "1rem" }}
           className="p-shadow-3"
         >
@@ -123,23 +146,26 @@ const UsuarioDetalle = ({ rowData }) => {
           <p>
             <strong>Horas asistidas:</strong> {tiempoAsistido.horas}
           </p>
+          <p>
+            <strong>Bitácoras realizadas:</strong> {bitacoras.length}
+          </p>
         </Card>
       </div>
 
       {/* Lista de asistencias */}
       <Divider />
       <h3>Historial de Asistencias</h3>
-      {/* Buscador global */}
+      {/* Buscador global para asistencias */}
       <div style={{ marginBottom: "1rem" }}>
         <InputText
-          value={globalFilter}
-          onChange={(e) => setGlobalFilter(e.target.value)}
-          placeholder="Buscar en el historial"
+          value={globalFilterAsistencias}
+          onChange={(e) => setGlobalFilterAsistencias(e.target.value)}
+          placeholder="Buscar en el historial de asistencias"
         />
       </div>
       <DataTable
         value={asistencias}
-        globalFilter={globalFilter} // Aquí pasamos el filtro global
+        globalFilter={globalFilterAsistencias}
         loading={loadingAsistencias}
         paginator
         rows={10}
@@ -151,6 +177,33 @@ const UsuarioDetalle = ({ rowData }) => {
         <Column field="horaEntrada" header="Hora de Entrada" sortable />
         <Column field="horaSalida" header="Hora de Salida" sortable />
         <Column field="duracion" header="Duración (Horas)" sortable />
+      </DataTable>
+
+      {/* Lista de bitácoras */}
+      <Divider />
+      <h3>Historial de Bitácoras</h3>
+      {/* Buscador global para bitácoras */}
+      <div style={{ marginBottom: "1rem" }}>
+        <InputText
+          value={globalFilterBitacoras}
+          onChange={(e) => setGlobalFilterBitacoras(e.target.value)}
+          placeholder="Buscar en el historial de bitácoras"
+        />
+      </div>
+      <DataTable
+        value={bitacoras}
+        globalFilter={globalFilterBitacoras}
+        loading={loadingBitacoras}
+        paginator
+        rows={10}
+        rowsPerPageOptions={[5, 10, 15]}
+        emptyMessage="No se encontraron bitácoras."
+        style={{ marginTop: "1rem" }}
+      >
+        <Column field="id" header="ID" sortable />
+        <Column field="alumno_matricula" header="Matrícula" sortable />
+        <Column field="proyecto_nombre" header="Proyecto" sortable />
+        <Column field="actividades" header="Actividades" sortable />
       </DataTable>
     </div>
   );

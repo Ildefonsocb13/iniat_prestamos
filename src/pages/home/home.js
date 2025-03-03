@@ -2,7 +2,8 @@ import React, { useState } from "react";
 import NavBar from "../../components/NavBar";
 import Prestamos from "./layout/prestamos";
 import Admin from "./layout/admin";
-import Asistencia from "./layout/asistencia";
+import Asistencia from "./layout/components/asistencias/asistencia";
+import Bitacora from "./layout/components/bitacora/bitacora";
 
 const Home = () => {
   const [activeIndex, setActiveIndex] = useState(0); // Estado para controlar el índice de la pestaña seleccionada
@@ -16,11 +17,11 @@ const Home = () => {
     switch (activeIndex) {
       case 0:
         return <Asistencia />;
-
       case 1:
-        return <Prestamos />;
-
+        return <Bitacora />;
       case 2:
+        return <Prestamos />;
+      case 3:
         return <Admin />;
       default:
         return <Asistencia />;

@@ -6,7 +6,7 @@ import { Toast } from "primereact/toast";
 import "./asistencia.css";
 import { FloatLabel } from "primereact/floatlabel";
 
-import { registrarAsistencia } from "../../../services/api";
+import { registrarAsistencia } from "../../../../../services/api";
 
 const Asistencia = () => {
   const [matricula, setMatricula] = useState("");
