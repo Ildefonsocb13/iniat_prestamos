@@ -17,6 +17,11 @@ import {
 import "./bitacora.css";
 
 const Bitacora = () => {
+  const fechaActual = new Date().toLocaleDateString("es-MX", {
+    day: "2-digit",
+    month: "2-digit",
+    year: "numeric",
+  });
   //Add Bitacoras
   const [matricula, setMatricula] = useState("");
   const [proyecto, setProyecto] = useState(null);
@@ -169,7 +174,11 @@ const Bitacora = () => {
   return (
     <div className="bitacora-container">
       <Toast ref={toast} className="bitacora-toast" />
-      <Card title="Registrar Bitacora" className="bitacora-card">
+      <Card
+        title="Registrar Bitacora"
+        subTitle={`${fechaActual}`}
+        className="bitacora-card"
+      >
         {/* Formulario de registro de bitácora (existente) */}
         <div className="bitacora-input-container">
           <FloatLabel>

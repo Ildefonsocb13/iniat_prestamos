@@ -207,7 +207,6 @@ export const registrarAsistencia = async (matricula, tipo) => {
  * @returns {Promise} Respuesta de la API.
  */
 export const getAsistenciasPorMatricula = async (matricula) => {
-  console.log("matricula", matricula);
   try {
     const response = await axios.post(
       `${API_URL}/asistencias/getAsistenciasPorMatricula.php`,
@@ -297,7 +296,6 @@ export const calcularHorasTrabajadas = async (
  */
 export const saveUsuario = async (usuario) => {
   try {
-    console.log("usuario", usuario);
     const response = await axios.post(
       `${API_URL}/usuarios/addEditUsuario.php`,
       {
@@ -368,7 +366,6 @@ export const deleteUsuario = async (id) => {
  */
 export const saveProyecto = async (proyecto) => {
   try {
-    console.log("proyecto", proyecto);
     const response = await axios.post(
       `${API_URL}/proyectos/addEditProyecto.php`,
       {
